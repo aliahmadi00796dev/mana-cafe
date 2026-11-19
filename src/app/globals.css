@@ -1,0 +1,12 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+:root { --focus: #A77B56; }
+html { scroll-behavior: smooth; }
+body { @apply bg-cream text-espresso antialiased; line-height: 1.9; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition-colors; }
+.btn-dark { @apply bg-espresso text-cream hover:bg-coffee; }
+.btn-line { @apply border border-brown/40 text-brown hover:bg-brown hover:text-cream; }
+.input { @apply w-full rounded-xl border border-beige bg-white px-4 py-2.5 text-sm; }
+@keyframes steam { 0% { opacity: 0; transform: translateY(14px) scaleX(1); } 40% { opacity: .55; } 100% { opacity: 0; transform: translateY(-34px) scaleX(1.5); } }
+.steam { animation: steam 4.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .steam { animation: none; opacity: .35; } html { scroll-behavior: auto; } }
