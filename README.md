@@ -1,31 +1,44 @@
-# مانا (MANA CAFÉ)
+# MANA CAFÉ
 
-وب‌سایت فارسی کافه، پروژهٔ نمایشی PANDORUNT. Next.js (App Router) + TypeScript + Tailwind، خروجی استاتیک برای GitHub Pages.
+A Persian-first cafe website, built as a PANDORUNT portfolio project. Built with Next.js (App Router), TypeScript and Tailwind CSS, and exported as static files for GitHub Pages.
 
-## نصب و اجرا
+## Install and run
+
 ```bash
 npm install
 npm run dev          # http://localhost:3000
 npm run typecheck && npm run lint
-npm run build        # خروجی استاتیک در out/
+npm run build        # static output in out/
 ```
 
-## انتشار روی GitHub Pages
-1. ریپازیتوری بسازید (پیشنهاد: `mana-cafe`) و کد را روی شاخهٔ `main` پوش کنید.
-2. Settings → Pages → Source: **GitHub Actions**.
-3. ورک‌فلو `.github/workflows/deploy.yml` نام ریپازیتوری را خودکار از `github.event.repository.name` می‌خواند و `NEXT_PUBLIC_BASE_PATH=/<repo>` را تنظیم می‌کند. هیچ نامی در کد ثابت نیست.
-4. بیلد محلی برای زیرمسیر: `NEXT_PUBLIC_BASE_PATH=/mana-cafe NEXT_PUBLIC_SITE_URL=https://USERNAME.github.io/mana-cafe npm run build`
+## Deploy to GitHub Pages
 
-## ساختار
-`src/data` داده‌ها · `src/services/catalog.ts` رابط دسترسی به داده · `src/hooks` ذخیره‌سازی محلی · `src/components` رابط · `src/app` صفحه‌ها.
+1. Create a repository (suggested name: `mana-cafe`) and push the code to the `main` branch.
+2. Go to Settings → Pages → Source: **GitHub Actions**.
+3. The workflow `.github/workflows/deploy.yml` reads the repository name automatically from `github.event.repository.name` and sets `NEXT_PUBLIC_BASE_PATH=/<repo>`. No repository name is hardcoded.
+4. To build locally for a subpath:
+   ```bash
+   NEXT_PUBLIC_BASE_PATH=/mana-cafe NEXT_PUBLIC_SITE_URL=https://USERNAME.github.io/mana-cafe npm run build
+   ```
 
-## داشبورد نمایشی
-`/admin/` بدون ورود و **ناامن** است؛ تغییرات فقط در LocalStorage همان مرورگر (کلیدهای `mana_*`) می‌ماند. صفحه‌های جزئیات محصول در زمان بیلد ساخته می‌شوند، پس محصول جدیدِ افزوده‌شده از داشبورد در منو دیده می‌شود ولی صفحهٔ جزئیات ندارد.
+## Project structure
 
-## مهاجرت به بک‌اند
-یک پیاده‌سازی جدید از `CatalogService` بنویسید (API/DB)، هوک‌های `src/hooks/useCatalog.ts` را به آن وصل کنید و احراز هویت واقعی سمت سرور اضافه کنید.
+- `src/data`: static categories and products
+- `src/services/catalog.ts`: data access interface
+- `src/hooks`: LocalStorage hooks
+- `src/components`: UI components
+- `src/app`: pages and routes
 
-## محدودیت‌های شناخته‌شده
-- عکس واقعی محصولات وجود ندارد؛ نگاه کنید به `IMAGES_TODO.md`.
-- متن لوگو به path تبدیل نشده و با فونت Vazirmatn/Tahoma نمایش داده می‌شود؛ برای نسخهٔ نهایی در Figma/Inkscape outline کنید.
-- عکس هیرو جایگزین گرافیک SVG است.
+## Demo admin dashboard
+
+`/admin/` has no login and is **not secure**. Changes are saved only in the LocalStorage of the current browser (keys prefixed with `mana_`). Product detail pages are generated at build time, so a product added from the dashboard appears in the menu but has no detail page.
+
+## Backend migration
+
+Write a new implementation of `CatalogService` (API or database), connect the hooks in `src/hooks/useCatalog.ts` to it, and add real server-side authentication.
+
+## Known limitations
+
+- Real product photos are not included yet. See `IMAGES_TODO.md`.
+- The logo text is not converted to paths and renders with the Vazirmatn/Tahoma font. Outline it in Figma or Inkscape for the final version.
+- The hero uses an SVG graphic in place of a photograph.
